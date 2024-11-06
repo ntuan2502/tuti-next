@@ -1,7 +1,8 @@
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { NextIntlClientProvider, useTranslations } from "next-intl";
+import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
+import { Link, routing } from "@/i18n/routing";
+import NextTopLoader from 'nextjs-toploader';
 
 type Params = Promise<{ locale: string }>;
 
@@ -22,10 +23,16 @@ export default async function LocaleLayout({
   // side is the easiest way to get started
   const messages = await getMessages();
 
+  const t = await getTranslations('Layout');
+
   return (
     <html lang={locale}>
       <body>
         <NextIntlClientProvider messages={messages}>
+        <NextTopLoader />
+        <Link href="/" locale="vi">{t('vi')}</Link>
+        <br></br>
+        <Link href="/" locale="en">{t('en')}</Link>
           {children}
         </NextIntlClientProvider>
       </body>
