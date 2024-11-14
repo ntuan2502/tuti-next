@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Providers } from "./providers";
 import NextTopLoader from "nextjs-toploader";
-import Language from "./language";
+import TopBar from "./topbar";
 
 type Params = Promise<{ locale: string }>;
 
@@ -26,23 +26,18 @@ export default async function LocaleLayout({
   // side is the easiest way to get started
   const messages = await getMessages();
 
-  // const t = await getTranslations("Layout");
-
   return (
     <html lang={locale}>
       <body>
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <NextTopLoader />
-            {/* <Link href="/" locale="vi">
-              {t("vi")}
-            </Link>
-            <br></br>
-            <Link href="/" locale="en">
-              {t("en")}
-            </Link> */}
-            <Language />
-            {children}
+            <div className="flex flex-col min-h-screen">
+              <TopBar />
+              <main className="flex-1 flex justify-center items-center text-center">
+                {children}
+              </main>
+            </div>
           </Providers>
         </NextIntlClientProvider>
       </body>
