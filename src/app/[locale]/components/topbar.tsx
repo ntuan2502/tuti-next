@@ -27,7 +27,6 @@ import {
 } from "./Icons";
 import Language from "./language";
 import { useState } from "react";
-import { delay } from "framer-motion";
 
 export default function TopBar() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);

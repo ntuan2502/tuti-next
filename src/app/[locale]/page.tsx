@@ -1,12 +1,12 @@
 "use client";
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
 // import { Link } from "@/i18n/routing";
 import { Button, Image } from "@nextui-org/react";
 import { useState } from "react";
 
 export default function HomePage() {
   const [refreshKey, setRefreshKey] = useState(0);
-  const t = useTranslations("HomePage");
+  // const t = useTranslations("HomePage");
 
   const handleRefresh = () => {
     setRefreshKey((prevKey) => prevKey + 1);
@@ -20,6 +20,7 @@ export default function HomePage() {
       <Image
         src={`https://picsum.photos/1366/768?refresh=` + refreshKey}
         loading="lazy"
+        alt="picsum"
       />
       {/* <Spinner /> */}
       <Button
