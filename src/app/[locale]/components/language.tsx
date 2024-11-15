@@ -8,7 +8,7 @@ import {
 } from "@nextui-org/react";
 import { useMemo, useState, useEffect } from "react";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import { languageData } from "../languageData";
+import { languageData } from "../../languageData";
 
 // Import SharedSelection type from NextUI
 import { SharedSelection } from "@nextui-org/react"; // Ensure SharedSelection is imported from NextUI

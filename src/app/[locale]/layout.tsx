@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Providers } from "./providers";
 import NextTopLoader from "nextjs-toploader";
-import TopBar from "./topbar";
+import TopBar from "./components/topbar";
 
 type Params = Promise<{ locale: string }>;
 

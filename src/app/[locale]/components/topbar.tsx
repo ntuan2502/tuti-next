@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -14,6 +13,7 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
+  Avatar,
 } from "@nextui-org/react";
 import { AcmeLogo } from "./AcmeLogo";
 import {
@@ -26,9 +26,12 @@ import {
   Scale,
 } from "./Icons";
 import Language from "./language";
+import { useState } from "react";
+import { delay } from "framer-motion";
 
 export default function TopBar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
 
   const icons = {
     chevron: <ChevronDown fill="currentColor" size={16} />,
@@ -57,20 +60,20 @@ export default function TopBar() {
 
   return (
     <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
-      <NavbarContent className="sm:hidden" justify="start">
+      <NavbarContent className="md:hidden" justify="start">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         />
       </NavbarContent>
 
-      <NavbarContent className="sm:hidden pr-3" justify="center">
+      <NavbarContent className="md:hidden pr-3" justify="center">
         <NavbarBrand>
           <AcmeLogo />
           <p className="font-bold text-inherit">ACME</p>
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent className="hidden md:flex gap-4" justify="center">
         <NavbarBrand>
           <AcmeLogo />
           <p className="font-bold text-inherit">ACME</p>
@@ -146,14 +149,60 @@ export default function TopBar() {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="warning" href="#" variant="flat">
-            Sign Up
-          </Button>
-        </NavbarItem>
+        {isLogin ? (
+          <>
+            <NavbarItem className="hidden md:flex">
+              <Link href="#">Login</Link>
+            </NavbarItem>
+            <NavbarItem className="hidden md:flex">
+              <Button as={Link} color="warning" href="#" variant="flat">
+                Sign Up
+              </Button>
+            </NavbarItem>
+          </>
+        ) : (
+          <Dropdown placement="bottom-end">
+            <DropdownTrigger>
+              <Avatar
+                isBordered
+                as="button"
+                className="transition-transform hidden md:flex"
+                color="secondary"
+                name="Jason Hughes"
+                size="sm"
+                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+              />
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownItem key="profile" className="h-14 gap-2">
+                <p className="font-semibold">Signed in as</p>
+                <p className="font-semibold">zoey@example.com</p>
+              </DropdownItem>
+              <DropdownItem key="settings">My Settings</DropdownItem>
+              <DropdownItem key="team_settings">Team Settings</DropdownItem>
+              <DropdownItem key="analytics">Analytics</DropdownItem>
+              <DropdownItem key="system">System</DropdownItem>
+              <DropdownItem key="configurations">Configurations</DropdownItem>
+              <DropdownItem key="help_and_feedback">
+                Help & Feedback
+              </DropdownItem>
+              <DropdownItem key="logout" color="danger">
+                Log Out
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        )}
+
+        <Button
+          color="primary"
+          radius="full"
+          className="hidden md:flex"
+          onClick={() => {
+            setIsLogin(!isLogin);
+          }}
+        >
+          X
+        </Button>
         <NavbarItem>
           <Language />
         </NavbarItem>
